@@ -18,18 +18,18 @@ public class TestarDormir {
 	@Test
 	public void testDragaoDormir() {
 		GameLogic gl = new GameLogic (labirinto,Dragao.Estado.Dorme);
-		while(gl.isDragaoAcordado()){
-			gl.atualizarDragao();
+		while(gl.isDragaoAcordado(0)){
+			gl.atualizarDragoes();
 		}
-		gl.atualizarDragao();
-		assertEquals(false,gl.isDragaoAcordado());
+		gl.atualizarDragoes();
+		assertEquals(false,gl.isDragaoAcordado(0));
 	}
 	
 	@Test
 	public void testDragaoDormirJogadorAoLado(){
 		GameLogic gl = new GameLogic (labirinto,Dragao.Estado.Dorme);
 		gl.update();
-		gl.adormecerDragao();
+		gl.adormecerDragao(0);
 		gl.moverHeroi(0, 1);
 		assertEquals(GameLogic.Estado.Jogar,gl.update());
 	}

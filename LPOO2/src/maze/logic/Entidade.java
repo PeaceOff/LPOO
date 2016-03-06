@@ -25,10 +25,6 @@ public class Entidade {
 	public void setPosicaoY(int posicaoY) {
 		this.posicaoY = posicaoY;
 	}
-
-	public void Update(){
-		
-	}
 	
 	public char getSimbolo() {
 		return simbolo;

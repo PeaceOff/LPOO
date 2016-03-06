@@ -3,10 +3,6 @@ package maze.logic;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.sun.javafx.collections.MappingChange.Map;
-
-import javafx.util.Pair;
-
 public class MazeBuilder implements IMazeBuilder {
 	
 	Node[][] nodesArray ;
@@ -15,7 +11,11 @@ public class MazeBuilder implements IMazeBuilder {
 	@Override
 	public char[][] buildMaze(int size) throws IllegalArgumentException {
 		if(size % 2 == 0)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("O numero tem de ser impar!");
+		
+		if(size < 5){
+			throw new IllegalArgumentException("O numero tem de ser maior ou igual a 5!");
+		}
 		
 		int dimensao = (size-1)/2;
 		nodesArray = new Node[dimensao][dimensao];
@@ -89,9 +89,14 @@ public class MazeBuilder implements IMazeBuilder {
 		nEscolhido =visitados.get(rnd.nextInt(visitados.size()));
 		DefinirChar(nEscolhido, 'E');
 		visitados.remove(nEscolhido);
-		//Posicao Dragao
-		nEscolhido =visitados.get(rnd.nextInt(visitados.size()));
-		DefinirChar(nEscolhido, 'D');
+		//Posicao Dragoes
+		int nDragoes = (int)(size * 0.2);
+		for (int i = 0; i < nDragoes; i++) {
+			nEscolhido =visitados.get(rnd.nextInt(visitados.size()));
+			DefinirChar(nEscolhido, 'D');
+			visitados.remove(nEscolhido);
+		}
+		
 		
 		int pos = rnd.nextInt(size-2) + 1;
 		

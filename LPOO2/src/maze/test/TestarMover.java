@@ -19,10 +19,10 @@ public class TestarMover {
 	public void testDragraoMove() {
 		GameLogic gl = new GameLogic(labirinto, Dragao.Estado.Move);
 		
-		while(gl.isDragaoEm(3, 3))
-			gl.atualizarDragao();
+		while(gl.isDragaoEm(3, 3,0))
+			gl.atualizarDragoes();
 		
-		assertEquals(true,(gl.isDragaoEm(2,3)));
+		assertEquals(true,(gl.isDragaoEm(2,3,0)));
 		gl.update();
 		assertEquals('F',gl.getLabirinto().obterSimb(2, 3));
 	}

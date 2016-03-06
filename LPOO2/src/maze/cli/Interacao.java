@@ -40,7 +40,21 @@ public class Interacao {
 			estado = Dragao.Estado.Move;
 			break;
 		}
-		GameLogic gl = new GameLogic(mb.buildMaze(29),estado); 
+		
+		GameLogic gl;
+		int dim;
+		
+		while (true) {//Enquanto a dimensao nao for correta
+			try {
+				System.out.println("Insira a dimensao que deseja para o tabuleiro: ");
+				dim = Integer.parseInt(s.nextLine());
+				gl = new GameLogic(mb.buildMaze(dim), estado);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		
 		GameLogic.Estado est = GameLogic.Estado.Jogar;
 		
 		
@@ -48,7 +62,7 @@ public class Interacao {
 		System.out.println(gl.getLabirinto());
 		
 		while(est == GameLogic.Estado.Jogar){
-			gl.atualizarDragao();
+			gl.atualizarDragoes();
 			String tecla = s.nextLine();
 			switch(tecla){
 			case "w":
@@ -73,10 +87,10 @@ public class Interacao {
 		System.out.println(gl.getLabirinto());
 		switch(est){ 
 		case Morto:
-			System.out.println("Morreste! Ganda nabo!");
+			System.out.println("Morreste!");
 			break;
 		case Vitoria:
-			System.out.println("Ganhaste! Ganda nabo!");
+			System.out.println("Ganhaste! Parabens!");
 			break;
 			default:
 				break;

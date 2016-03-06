@@ -19,7 +19,7 @@ public class TestarParado {
 	
 		GameLogic gl = new GameLogic(labirinto,Dragao.Estado.Parado);
 		gl.update();
-		gl.atualizarDragao();
+		gl.atualizarDragoes();
 		assertEquals(true, gl.moverHeroi(-1, 0));
 		
 	}
@@ -54,7 +54,7 @@ public class TestarParado {
 		gl.moverHeroi(-2, 2);
 		gl.moverHeroi(1, 0);
 		gl.update();
-		assertEquals(true,gl.isDragaoMorto());
+		assertEquals(true,gl.isDragaoMorto(0));
 	}
 	
 	@Test
