@@ -29,6 +29,10 @@ public class GameLogic {
 		return this.d.isAcordado();
 	}
 	
+	public void adormecerDragao(){
+		this.d.setDescanso(5);
+	}
+	
 	public boolean isDragaoMorto(){
 		return this.d.isMorto();
 	}

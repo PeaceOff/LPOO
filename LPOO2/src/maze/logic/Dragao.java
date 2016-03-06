@@ -21,10 +21,6 @@ public class Dragao extends Entidade {
 		return (descanso == 0);
 	}
 
-	public int getDescanso() {
-		return descanso;
-	}
-
 	public void setDescanso(int descanso) {
 		this.descanso = descanso;
 	}
@@ -50,9 +46,4 @@ public class Dragao extends Entidade {
 	public Estado getEst() {
 		return est;
 	}
-
-	public void setEst(Estado est) {
-		this.est = est;
-	}
-	
 }

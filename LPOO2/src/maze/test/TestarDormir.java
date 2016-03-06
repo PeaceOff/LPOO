@@ -24,5 +24,14 @@ public class TestarDormir {
 		gl.atualizarDragao();
 		assertEquals(false,gl.isDragaoAcordado());
 	}
+	
+	@Test
+	public void testDragaoDormirJogadorAoLado(){
+		GameLogic gl = new GameLogic (labirinto,Dragao.Estado.Dorme);
+		gl.update();
+		gl.adormecerDragao();
+		gl.moverHeroi(0, 1);
+		assertEquals(GameLogic.Estado.Jogar,gl.update());
+	}
 
 }
