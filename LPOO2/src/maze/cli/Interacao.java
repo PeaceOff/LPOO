@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import maze.logic.Dragao;
 import maze.logic.GameLogic;
+import maze.logic.MazeBuilder;
 
 public class Interacao {
 
@@ -22,6 +23,10 @@ public class Interacao {
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		
+		MazeBuilder mb = new MazeBuilder();
+		
+		
+		
 		Dragao.Estado estado = Dragao.Estado.Parado;
 		System.out.println("Como deseja o seu dragao?[Dormir(d),Parado(p),Mover(m)]");
 		switch(s.nextLine()){
@@ -35,8 +40,9 @@ public class Interacao {
 			estado = Dragao.Estado.Move;
 			break;
 		}
-		GameLogic gl = new GameLogic(labirinto,estado);
+		GameLogic gl = new GameLogic(mb.buildMaze(29),estado); 
 		GameLogic.Estado est = GameLogic.Estado.Jogar;
+		
 		
 		gl.update();
 		System.out.println(gl.getLabirinto());
