@@ -145,6 +145,18 @@ public class TestMazeBuilder {
 		}	
 	}
 	
+	@Test (expected=IllegalArgumentException.class)
+	public void testThrowsErroNumeroPar(){
+		IMazeBuilder builder = new MazeBuilder();
+		builder.buildMaze(8);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testThrowsErroNumeroPequeno(){
+		IMazeBuilder builder = new MazeBuilder();
+		builder.buildMaze(3);
+	}
+	
 	public String str(char [][] maze) {
 		StringBuilder s = new StringBuilder();
 		for (char [] line : maze) {
