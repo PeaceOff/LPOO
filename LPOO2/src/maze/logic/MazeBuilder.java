@@ -5,11 +5,29 @@ import java.util.Random;
 
 public class MazeBuilder implements IMazeBuilder {
 	
-	Node[][] nodesArray ;
-	char[][] mapa;
+	private Node[][] nodesArray ;
+	private char[][] mapa;
+	private int numDragoes = 0;
 	
+	
+	
+	public int getNumdragoes() {
+		return numDragoes;
+	}
+
+	public void setNumdragoes(int numdragoes) {
+		this.numDragoes = numdragoes;
+	}
+
 	@Override
 	public char[][] buildMaze(int size) throws IllegalArgumentException {
+		
+		int nDragoes = (int)(size * 0.3);
+		
+		if(numDragoes < nDragoes && numDragoes != 0){
+			nDragoes=numDragoes;
+		}
+		
 		if(size % 2 == 0)
 			throw new IllegalArgumentException("O numero tem de ser impar!");
 		
@@ -90,7 +108,8 @@ public class MazeBuilder implements IMazeBuilder {
 		DefinirChar(nEscolhido, 'E');
 		visitados.remove(nEscolhido);
 		//Posicao Dragoes
-		int nDragoes = (int)(size * 0.2);
+		
+		
 		for (int i = 0; i < nDragoes; i++) {
 			nEscolhido =visitados.get(rnd.nextInt(visitados.size()));
 			DefinirChar(nEscolhido, 'D');

@@ -135,11 +135,23 @@ public class interacao {
 				MazeBuilder mb = new MazeBuilder();
 				
 				int dim = 11;
-				dim = Integer.parseUnsignedInt(textFDim.getText());
-				
+				int ndrag = 1;
 				int estado = comboBox.getSelectedIndex();
 				
-				gl = new GameLogic(mb.buildMaze(dim), Dragao.Estado.values()[estado]);
+				try{
+					dim = Integer.parseInt(textFDim.getText());
+					ndrag = Integer.parseInt(textFNumD.getText());
+					mb.setNumdragoes(ndrag); 
+					gl = new GameLogic(mb.buildMaze(dim), Dragao.Estado.values()[estado]);
+				}catch (IllegalArgumentException e){
+					lblEstado.setText(e.getMessage());
+					btnBaixo.setEnabled(false);;
+					btnCima.setEnabled(false);;
+					btnEsquerda.setEnabled(false);
+					btnDireita.setEnabled(false);
+					return;
+				}
+				
 				
 				lblEstado.setText("Pronto a jogar!");
 				textADisplay.setText(gl.getLabirinto().toString());
@@ -164,8 +176,8 @@ public class interacao {
 		frame.getContentPane().add(btnTerminar);
 		
 		textADisplay = new JTextArea();
-		textADisplay.setForeground(Color.YELLOW);
-		textADisplay.setBackground(Color.PINK);
+		textADisplay.setForeground(Color.BLACK);
+		textADisplay.setBackground(Color.WHITE);
 		textADisplay.setFont(new Font("Courier New", Font.PLAIN, 13));
 		textADisplay.setEditable(false);
 		textADisplay.setWrapStyleWord(true);
@@ -213,7 +225,7 @@ public class interacao {
 		frame.getContentPane().add(btnDireita);
 		
 		lblEstado = new JLabel("Clique no Bot\u00E3o Gerar Labirinto para Come\u00E7ar");
-		lblEstado.setBounds(10, 337, 243, 14);
+		lblEstado.setBounds(10, 337, 429, 14);
 		frame.getContentPane().add(lblEstado);
 	}
 }
