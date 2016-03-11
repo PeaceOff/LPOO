@@ -8,7 +8,6 @@ import javax.swing.JTextField;
 
 import maze.logic.Dragao;
 import maze.logic.GameLogic;
-import maze.logic.Labirinto;
 import maze.logic.MazeBuilder;
 
 import javax.swing.JComboBox;
@@ -67,15 +66,15 @@ public class interacao {
 		boolean terminou = false;
 		switch(estado){
 		case Jogar:
-			lblEstado.setText("Parabéns! Continua o jogo!");
+			lblEstado.setText("Parabï¿½ns! Continua o jogo!");
 			break;
 		case Morto:
 			terminou= true;
-			lblEstado.setText("Parabéns! Perdeste o jogo!");
+			lblEstado.setText("Parabï¿½ns! Perdeste o jogo!");
 			break;
 		case Vitoria:
 			terminou = true;
-			lblEstado.setText("Parabéns! Venceste o jogo!");
+			lblEstado.setText("Parabï¿½ns! Venceste o jogo!");
 			break;
 		}
 		
@@ -178,7 +177,7 @@ public class interacao {
 		textADisplay = new JTextArea();
 		textADisplay.setForeground(Color.BLACK);
 		textADisplay.setBackground(Color.WHITE);
-		textADisplay.setFont(new Font("Courier New", Font.PLAIN, 13));
+		textADisplay.setFont(new Font("Courier 10 Pitch", Font.PLAIN, 13));
 		textADisplay.setEditable(false);
 		textADisplay.setWrapStyleWord(true);
 		textADisplay.setBounds(10, 115, 243, 210);
