@@ -134,7 +134,7 @@ public class GameLogic {
 
 				int h = rand.nextInt(4);
 				if (h == 1) {
-					d.setDescanso(rand.nextInt(5) + 20);
+					d.setDescanso(rand.nextInt(5) + 2);
 					return;
 				}
 			}
