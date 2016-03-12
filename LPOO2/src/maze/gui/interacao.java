@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import maze.logic.Dragao;
+import maze.logic.Dragao.Estado;
 import maze.logic.GameLogic;
 import maze.logic.MazeBuilder;
 
@@ -30,7 +31,7 @@ public class interacao {
 	private JButton btnEsquerda;
 	private JButton btnDireita;
 	private JLabel lblEstado;
-	private JComboBox comboBox;
+	private JComboBox<Dragao.Estado> comboBox;
 	private JTextArea textADisplay;
 	private GameLogic gl;
 	
@@ -177,7 +178,7 @@ public class interacao {
 		textADisplay = new JTextArea();
 		textADisplay.setForeground(Color.BLACK);
 		textADisplay.setBackground(Color.WHITE);
-		textADisplay.setFont(new Font("Courier 10 Pitch", Font.PLAIN, 13));
+		textADisplay.setFont(new Font("Courier New", Font.PLAIN, 13));
 		textADisplay.setEditable(false);
 		textADisplay.setWrapStyleWord(true);
 		textADisplay.setBounds(10, 115, 243, 210);
