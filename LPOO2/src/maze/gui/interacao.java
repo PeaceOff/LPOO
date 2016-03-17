@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import maze.logic.Dragao;
-import maze.logic.Dragao.Estado;
 import maze.logic.GameLogic;
 import maze.logic.MazeBuilder;
 
@@ -119,7 +118,7 @@ public class interacao {
 		textFNumD.setBounds(133, 44, 86, 20);
 		frame.getContentPane().add(textFNumD);
 		textFNumD.setColumns(10);
-		comboBox = new JComboBox(Dragao.Estado.values());
+		comboBox = new JComboBox<Dragao.Estado>(Dragao.Estado.values());
 		comboBox.setMaximumRowCount(3);
 		comboBox.setBounds(133, 87, 218, 20);
 		frame.getContentPane().add(comboBox);
