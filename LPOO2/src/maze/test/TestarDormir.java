@@ -22,7 +22,7 @@ public class TestarDormir {
 			gl.atualizarDragoes();
 		}
 		gl.atualizarDragoes();
-		gl.atualizarDragoes();
+		//gl.atualizarDragoes();
 		assertEquals(false,gl.isDragaoAcordado(0));
 	}
 	
