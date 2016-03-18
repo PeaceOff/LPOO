@@ -24,16 +24,18 @@ public class MazeBuilder implements IMazeBuilder {
 		
 		int nDragoes = (int)(size * 0.3);
 		
-		if(numDragoes < nDragoes && numDragoes != 0){
-			nDragoes=numDragoes;
-		}
+		if(size < 5)
+			throw new IllegalArgumentException("O numero tem de ser maior ou igual a 5!");
 		
 		if(size % 2 == 0)
 			throw new IllegalArgumentException("O numero tem de ser impar!");
 		
-		if(size < 5){
-			throw new IllegalArgumentException("O numero tem de ser maior ou igual a 5!");
-		}
+		if(numDragoes == 0)
+			throw new IllegalArgumentException("O numero de dragoes nao pode ser 0!");
+		
+		if(numDragoes > nDragoes)
+			throw new IllegalArgumentException("Numero de Dragoes deve ser menor ou igual a " + nDragoes + "!");
+		
 		
 		int dimensao = (size-1)/2;
 		nodesArray = new Node[dimensao][dimensao];
@@ -107,9 +109,9 @@ public class MazeBuilder implements IMazeBuilder {
 		nEscolhido =visitados.get(rnd.nextInt(visitados.size()));
 		DefinirChar(nEscolhido, 'E');
 		visitados.remove(nEscolhido);
-		//Posicao Dragoes
 		
 		
+		//Posicao Dragoes		
 		for (int i = 0; i < nDragoes; i++) {
 			nEscolhido =visitados.get(rnd.nextInt(visitados.size()));
 			DefinirChar(nEscolhido, 'D');

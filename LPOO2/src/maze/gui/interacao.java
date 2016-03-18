@@ -30,7 +30,7 @@ public class interacao {
 	private JButton btnEsquerda;
 	private JButton btnDireita;
 	private JLabel lblEstado;
-	private JComboBox<Dragao.Estado> comboBox;
+	private JComboBox comboBox;
 	private JTextArea textADisplay;
 	private GameLogic gl;
 	
@@ -66,15 +66,15 @@ public class interacao {
 		boolean terminou = false;
 		switch(estado){
 		case Jogar:
-			lblEstado.setText("Parab�ns! Continua o jogo!");
+			lblEstado.setText("Parabens! Continua o jogo!");
 			break;
 		case Morto:
 			terminou= true;
-			lblEstado.setText("Parab�ns! Perdeste o jogo!");
+			lblEstado.setText("Parabens! Perdeste o jogo!");
 			break;
 		case Vitoria:
 			terminou = true;
-			lblEstado.setText("Parab�ns! Venceste o jogo!");
+			lblEstado.setText("Parabens! Venceste o jogo!");
 			break;
 		}
 		
@@ -99,7 +99,7 @@ public class interacao {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblDimensao = new JLabel("Dimens\u00E3o do Labirinto");
+		JLabel lblDimensao = new JLabel("Dimensao do Labirinto");
 		lblDimensao.setBounds(10, 11, 113, 24);
 		frame.getContentPane().add(lblDimensao);
 		
@@ -109,7 +109,7 @@ public class interacao {
 		frame.getContentPane().add(textFDim);
 		textFDim.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("N\u00FAmero de Drag\u00F5es");
+		JLabel lblNewLabel = new JLabel("Numero de Dragoes");
 		lblNewLabel.setBounds(10, 46, 113, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
@@ -118,12 +118,12 @@ public class interacao {
 		textFNumD.setBounds(133, 44, 86, 20);
 		frame.getContentPane().add(textFNumD);
 		textFNumD.setColumns(10);
-		comboBox = new JComboBox<Dragao.Estado>(Dragao.Estado.values());
+		comboBox = new JComboBox(Dragao.Estado.values());
 		comboBox.setMaximumRowCount(3);
 		comboBox.setBounds(133, 87, 218, 20);
 		frame.getContentPane().add(comboBox);
 		
-		JLabel lblNewLabel_1 = new JLabel("Tipo de Drag\u00F5es");
+		JLabel lblNewLabel_1 = new JLabel("Tipo de Dragoes");
 		lblNewLabel_1.setBounds(10, 90, 113, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
@@ -223,7 +223,7 @@ public class interacao {
 		btnDireita.setBounds(353, 193, 86, 23);
 		frame.getContentPane().add(btnDireita);
 		
-		lblEstado = new JLabel("Clique no Bot\u00E3o Gerar Labirinto para Come\u00E7ar");
+		lblEstado = new JLabel("Clique no Botao Gerar Labirinto para Comecar");
 		lblEstado.setBounds(10, 337, 429, 14);
 		frame.getContentPane().add(lblEstado);
 	}
