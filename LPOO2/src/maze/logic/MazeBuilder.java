@@ -30,9 +30,6 @@ public class MazeBuilder implements IMazeBuilder {
 		if(size % 2 == 0)
 			throw new IllegalArgumentException("O numero tem de ser impar!");
 		
-		if(numDragoes == 0)
-			throw new IllegalArgumentException("O numero de dragoes nao pode ser 0!");
-		
 		if(numDragoes > nDragoes)
 			throw new IllegalArgumentException("Numero de Dragoes deve ser menor ou igual a " + nDragoes + "!");
 		
