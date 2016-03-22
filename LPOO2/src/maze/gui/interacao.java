@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JWindow;
 
 import maze.logic.Dragao;
 import maze.logic.GameLogic;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class interacao {
 
@@ -33,7 +35,8 @@ public class interacao {
 	private JComboBox comboBox;
 	private JTextArea textADisplay;
 	private GameLogic gl;
-	
+	private GameGraphics gGraphics = new GameGraphics(null);
+	private JWindow window;
 	/**
 	 * Launch the application.
 	 */
@@ -54,7 +57,7 @@ public class interacao {
 	 * Create the application.
 	 */
 	public interacao() {
-		initialize();
+		initialize(); 
 	}
 	
 	public void moverHeroi(int x, int y){
@@ -85,8 +88,6 @@ public class interacao {
 			btnEsquerda.setEnabled(false);
 			btnDireita.setEnabled(false);
 		}
-		
-		
 	}
 	
 	
@@ -111,7 +112,7 @@ public class interacao {
 		
 		JLabel lblNewLabel = new JLabel("Numero de Dragoes");
 		lblNewLabel.setBounds(10, 46, 113, 14);
-		frame.getContentPane().add(lblNewLabel);
+		frame.getContentPane().add(lblNewLabel); 
 		
 		textFNumD = new JTextField();
 		textFNumD.setText("1");
@@ -122,7 +123,7 @@ public class interacao {
 		comboBox.setMaximumRowCount(3);
 		comboBox.setBounds(133, 87, 218, 20);
 		frame.getContentPane().add(comboBox);
-		
+		 
 		JLabel lblNewLabel_1 = new JLabel("Tipo de Dragoes");
 		lblNewLabel_1.setBounds(10, 90, 113, 14);
 		frame.getContentPane().add(lblNewLabel_1);
@@ -142,6 +143,16 @@ public class interacao {
 					ndrag = Integer.parseInt(textFNumD.getText());
 					mb.setNumdragoes(ndrag); 
 					gl = new GameLogic(mb.buildMaze(dim), Dragao.Estado.values()[estado]);
+					gl.update();
+					gGraphics.setGl(gl);
+					frame.setSize(900, 900);
+					gGraphics.setVisible(true);
+					//gGraphics.setPreferredSize(new Dimension(200,200));
+					frame.getContentPane().add(gGraphics);  
+					gGraphics.setBounds(10,115, 11*50, 11*50); 
+					gGraphics.repaint();
+					gGraphics.requestFocus(); 
+					
 				}catch (IllegalArgumentException e){
 					lblEstado.setText(e.getMessage());
 					btnBaixo.setEnabled(false);;
@@ -217,12 +228,12 @@ public class interacao {
 		btnDireita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				moverHeroi(1,0);
-			}
+			} 
 		});
 		btnDireita.setEnabled(false);
 		btnDireita.setBounds(353, 193, 86, 23);
 		frame.getContentPane().add(btnDireita);
-		
+		 
 		lblEstado = new JLabel("Clique no Botao Gerar Labirinto para Comecar");
 		lblEstado.setBounds(10, 337, 429, 14);
 		frame.getContentPane().add(lblEstado);

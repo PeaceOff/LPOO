@@ -6,7 +6,7 @@ import maze.logic.GameLogic;
 import maze.logic.MazeBuilder;
 
 public class Interacao {
-
+ 
 	static char[][] labirinto = {
 			{'X','X','X','X','X','X','X','X','X','X'},
 			{'X','H',' ',' ',' ',' ',' ',' ',' ','X'},
@@ -15,11 +15,11 @@ public class Interacao {
 			{'X',' ','X','X',' ','X',' ','X',' ','X'},
 			{'X',' ',' ',' ',' ',' ',' ','X',' ','S'},
 			{'X',' ','X','X',' ','X',' ','X',' ','X'},
-			{'X',' ','X','X',' ','X',' ','X',' ','X'},
+			{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
 			{'X','E','X','X',' ',' ',' ',' ',' ','X'},
 			{'X','X','X','X','X','X','X','X','X','X'}};
 
-	
+	 
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		
@@ -72,7 +72,7 @@ public class Interacao {
 				gl.moverHeroi(-1,0);
 				break;
 			case "s":
-				gl.moverHeroi(0,1);
+				gl.moverHeroi(0,1); 
 				break;
 			case "d":
 				gl.moverHeroi(1,0);

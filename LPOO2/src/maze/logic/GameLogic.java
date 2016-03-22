@@ -49,7 +49,7 @@ public class GameLogic {
 		for (int i = 0; i < dragoes.size(); i++)
 			if (!dragoes.get(i).isMorto())
 				return false;
-
+ 
 		return true;
 	}
 
@@ -141,7 +141,6 @@ public class GameLogic {
 
 		}
 
-		l.desenharSimb(d.getPosicaoX(), d.getPosicaoY(), ' ');
 		int xF, yF, h;
 		h = rand.nextInt(2);
 		if (h == 0) {
@@ -154,7 +153,8 @@ public class GameLogic {
 
 		if (l.obterSimb(xF, yF) != ' ' && l.obterSimb(xF, yF) != 'E')
 			return;
-
+		
+		l.desenharSimb(d.getPosicaoX(), d.getPosicaoY(), ' ');
 		d.setPosicaoX(xF);
 		d.setPosicaoY(yF);
 	}
@@ -169,20 +169,21 @@ public class GameLogic {
 	}
 
 	public boolean moverHeroi(int x, int y) {
-		l.desenharSimb(h.getPosicaoX(), h.getPosicaoY(), ' ');
 		int xF, yF;
 		xF = x + h.getPosicaoX();
 		yF = y + h.getPosicaoY();
 
 		if (l.obterSimb(xF, yF) == 'X' || l.obterSimb(xF, yF) == 'D' || l.obterSimb(xF, yF) == 'd'
-				|| l.obterSimb(xF, yF) == 'F')
+				|| l.obterSimb(xF, yF) == 'F'){	
 			return false;
+		}
 
 		if (xF == e.getPosicaoX() && yF == e.getPosicaoY()) {
 			h.setArmado(true);
 			e.setVisivel(false);
-		}
-
+		} 
+		
+		l.desenharSimb(h.getPosicaoX(), h.getPosicaoY(), ' ');
 		h.setPosicaoX(xF);
 		h.setPosicaoY(yF);
 		return true;
