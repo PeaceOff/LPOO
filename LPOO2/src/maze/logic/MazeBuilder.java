@@ -109,7 +109,7 @@ public class MazeBuilder implements IMazeBuilder {
 		
 		
 		//Posicao Dragoes		
-		for (int i = 0; i < nDragoes; i++) {
+		for (int i = 0; i < numDragoes; i++) {
 			nEscolhido =visitados.get(rnd.nextInt(visitados.size()));
 			DefinirChar(nEscolhido, 'D');
 			visitados.remove(nEscolhido);
