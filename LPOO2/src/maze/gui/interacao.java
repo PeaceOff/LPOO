@@ -30,6 +30,7 @@ public class interacao {
 	private JComboBox comboBox;
 	private GameLogic gl;
 	private GameGraphics gGraphics = new GameGraphics(null);
+	private JFrame frame2 = new JFrame();
 	/**
 	 * Launch the application.
 	 */
@@ -91,6 +92,8 @@ public class interacao {
 		lblNewLabel_1.setBounds(10, 90, 113, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
+		frame2.getContentPane().add(gGraphics);
+		
 		btnGerarNovoLabirinto = new JButton("Gerar Novo Labirinto");
 		btnGerarNovoLabirinto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -107,11 +110,13 @@ public class interacao {
 					mb.setNumdragoes(ndrag); 
 					gl = new GameLogic(mb.buildMaze(dim), Dragao.Estado.values()[estado]);
 					gl.update();
-					gGraphics.setGl(gl);
-					frame.setSize(900, 900);
-					gGraphics.setVisible(true);
-					frame.getContentPane().add(gGraphics);  
-					gGraphics.setBounds(10,115, 11*50, 11*50); 
+					frame2.setVisible(true);
+				
+					frame2.setSize(dim*50 + 15, dim*50 + 40);
+					gGraphics.setGl(gl); 
+					gGraphics.setVisible(true); 
+					//frame.getContentPane().add(gGraphics);  
+					gGraphics.setBounds(0,0, dim*50, dim*50); 
 					gGraphics.repaint();
 					gGraphics.requestFocus(); 
 					

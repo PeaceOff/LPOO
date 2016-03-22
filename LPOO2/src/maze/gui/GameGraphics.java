@@ -29,7 +29,9 @@ public class GameGraphics extends JPanel implements KeyListener, MouseInputListe
 	
 	BufferedImage labImg;
 	BufferedImage heroImg;
+	BufferedImage espadaImg;
 	GameLogic gl;
+
 	final int imgSize = 50;
 	String mensagem;
 	public GameGraphics(GameLogic gl){
@@ -38,6 +40,7 @@ public class GameGraphics extends JPanel implements KeyListener, MouseInputListe
 		try{
 			labImg = ImageIO.read(new File("lab.jpg"));
 			heroImg = ImageIO.read(new File("hero.png"));
+			espadaImg = ImageIO.read(new File("espada.png"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}  
@@ -72,10 +75,12 @@ public class GameGraphics extends JPanel implements KeyListener, MouseInputListe
 		
 	} 
 	
-	private void DesenharHeroi(Graphics g, int x, int y){
+	private void DesenharHeroi(Graphics g, int x, int y, char simb){
 		x*=imgSize;
 		y*=imgSize; 
-		g.drawImage(heroImg, x, y, x+imgSize,y+ imgSize, 0, 0, heroImg.getWidth(),heroImg.getHeight(), null);
+		int x1 = (simb == 'A')? imgSize : 0;
+		
+		g.drawImage(heroImg, x, y, x+imgSize,y+ imgSize, x1, 0, x1 + imgSize,heroImg.getHeight(), null);
 	}
 	
 	private void DesenharDragao(Graphics g, int x, int y){
@@ -85,9 +90,9 @@ public class GameGraphics extends JPanel implements KeyListener, MouseInputListe
 	}
 	
 	private void DesenharEspada(Graphics g, int x, int y){
-		g.setColor(Color.yellow);
-		g.fillOval(x*imgSize, y*imgSize, imgSize, imgSize);
-		
+		x*=imgSize;
+		y*=imgSize;
+		g.drawImage(espadaImg, x, y, x+imgSize,y+ imgSize, 0, 0,imgSize,heroImg.getHeight(), null);
 	}
 	
 	private void DesenharLab(Graphics g){
@@ -96,7 +101,7 @@ public class GameGraphics extends JPanel implements KeyListener, MouseInputListe
 			for (int x = 0; x < lab[0].length; x++) {
 				int x1 = x*imgSize;
 				int y1 = y*imgSize;
-				
+				 
 				int x2 = 5*imgSize;
 				int y2 = imgSize;
 				   
@@ -104,7 +109,7 @@ public class GameGraphics extends JPanel implements KeyListener, MouseInputListe
 					g.drawImage(labImg, x1, y1, x1+imgSize, y1+imgSize, x2, y2, x2+ imgSize,y2+ imgSize, null);
 					char ch = lab[y][x];
 					if(ch == 'H' || ch == 'A'){ 
-						DesenharHeroi(g,x,y);
+						DesenharHeroi(g,x,y, ch);
 					}else if(ch == 'D' || ch == 'd' || ch == 'F'){ 
 						DesenharDragao(g, x, y);
 					}else if (ch == 'E')
