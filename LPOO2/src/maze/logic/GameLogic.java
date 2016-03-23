@@ -18,6 +18,11 @@ public class GameLogic {
 		return l; 
 	}
 	
+	public String getLab(){
+		l.desenharSimb(s.getPosicaoX(), s.getPosicaoY(), s.getSimbolo());
+		return l.toString();
+	}
+	
 	public boolean isHeroiArmado() {
 		return this.h.isArmado();
 	}
@@ -69,6 +74,17 @@ public class GameLogic {
 					break;
 				case 'S':
 					s = new Entidade(x, y, 'S');
+					break;
+				case 'd':
+					dragoes.add(new Dragao(x,y, est));
+					break;
+				case 'F':
+					e = new Espada(x,y);
+					dragoes.add(new Dragao(x,y,est));
+					break;
+				case 'A':
+					h = new Heroi(x,y);
+					h.setArmado(true);
 					break;
 				}
 			}
@@ -188,5 +204,7 @@ public class GameLogic {
 		h.setPosicaoY(yF);
 		return true;
 	}
+	
+	
 
 }

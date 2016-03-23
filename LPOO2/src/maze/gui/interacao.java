@@ -13,13 +13,21 @@ import maze.logic.Labirinto;
 import maze.logic.MazeBuilder;
 
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class interacao {
 
@@ -44,6 +52,10 @@ public class interacao {
 	private JButton saida;
 	private JButton borracha;
 	private JButton aplicar;
+	private JLabel display;
+	private JButton btnCarregarMaze;
+	private JButton btnGuardar;
+	private boolean isJogar = false;
 	
 	
 	/**
@@ -115,6 +127,7 @@ public class interacao {
 		heroi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lEdit.setCharInUse('H');
+				display.setText("O Heroi esta selecionado!");
 			}
 		});
 		heroi.setBounds(50, 180, 100, 50);
@@ -124,6 +137,7 @@ public class interacao {
 		parede.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lEdit.setCharInUse('X');
+				display.setText("A Parede esta selecionada!");
 			}
 		});
 		parede.setBounds(170, 180, 100, 50);
@@ -133,6 +147,7 @@ public class interacao {
 		dragao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lEdit.setCharInUse('D');
+				display.setText("O Dragao esta selecionado!");
 			}
 		});
 		dragao.setBounds(50, 240, 100, 50);
@@ -142,6 +157,7 @@ public class interacao {
 		espada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lEdit.setCharInUse('E');
+				display.setText("A Espada esta selecionada!");
 			}
 		});
 		espada.setBounds(170, 240, 100, 50);
@@ -151,6 +167,7 @@ public class interacao {
 		saida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lEdit.setCharInUse('S');
+				display.setText("A Saida esta selecionada!");
 			}
 		});
 		saida.setBounds(296, 180, 100, 50);
@@ -159,7 +176,8 @@ public class interacao {
 		borracha = new JButton("Borracha");
 		borracha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lEdit.setCharInUse('B');
+				lEdit.setCharInUse(' ');
+				display.setText("A Borracha esta selecionada!");
 			}
 		});
 		borracha.setBounds(296, 240, 100, 50);
@@ -168,14 +186,9 @@ public class interacao {
 		aplicar = new JButton("Aplicar");
 		aplicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int dim = 11;
-				dim = Integer.parseInt(textFDim.getText());
-				lEdit.initResult(dim);
-				frame3.getContentPane().add(lEdit);
-				frame3.setVisible(true);
-				frame3.setSize(dim*50  + 15, dim*50 + 40);
-				lEdit.setVisible(true);
-				lEdit.setSize(dim * 50, dim * 50);
+				
+				carregarEdit(null);
+				
 			}
 		});
 		aplicar.setBounds(273,131,123,35);
@@ -189,22 +202,13 @@ public class interacao {
 				
 				int dim = 11;
 				int ndrag = 1;
-				int estado = comboBox.getSelectedIndex();
 				
 				try{
 					dim = Integer.parseInt(textFDim.getText());
 					ndrag = Integer.parseInt(textFNumD.getText());
 					mb.setNumdragoes(ndrag); 
-					gl = new GameLogic(mb.buildMaze(dim), Dragao.Estado.values()[estado]);
-					gl.update();
-					frame2.setVisible(true);
-				
-					frame2.setSize(dim*50 + 15, dim*50 + 40);
-					gGraphics.setGl(gl); 
-					gGraphics.setVisible(true);
-					gGraphics.setBounds(0,0, dim*50, dim*50); 
-					gGraphics.repaint();
-					gGraphics.requestFocus();
+					carregarGL(mb.buildMaze(dim));
+
 					
 				}catch (IllegalArgumentException e){
 					return;
@@ -236,15 +240,134 @@ public class interacao {
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setCompEdit(false);
+				display.setText("Escolha a dimensao e clique em \"Aplicar\"");
 			}
 		});
 		btnEdit.setBounds(229, 22, 167, 57);
 		frame.getContentPane().add(btnEdit);
 		
+		display = new JLabel();
+		display.setHorizontalAlignment(SwingConstants.CENTER);
+		display.setBounds(50, 300, 346, 14);
+		frame.getContentPane().add(display);
+		
+		btnCarregarMaze = new JButton("Carregar...");
+		btnCarregarMaze.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				char[][] maze = openGame();
+				if(maze == null)
+					return;
+				if(isJogar){
+					carregarGL(maze);
+				} else {
+					carregarEdit(maze);
+				}
+			}
+		});
+		btnCarregarMaze.setBounds(24, 90, 86, 23);
+		frame.getContentPane().add(btnCarregarMaze);
+		
+		btnGuardar = new JButton("Guardar...");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveGame();
+			}
+		});
+		btnGuardar.setBounds(339, 90, 89, 23);
+		frame.getContentPane().add(btnGuardar);
+		
 		setCompEdit(false);
 	}
 	
+	public char[][] openGame(){
+		char[][] res = null;
+		JFileChooser file = new JFileChooser(System.getProperty("user.dir"));
+		file.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		FileNameExtensionFilter filtro = new FileNameExtensionFilter("labirinto","lab");
+		file.setFileFilter(filtro);
+		int i = file.showOpenDialog(frame.getParent());
+		if(i == JFileChooser.APPROVE_OPTION){
+			try{
+				FileReader ler = new FileReader(file.getSelectedFile());
+				Scanner s = new Scanner(ler);
+				String linha = s.nextLine();
+				int dim = Integer.parseInt(linha);
+				res = new char[dim][dim];
+				int y = 0;
+				while(s.hasNextLine()){
+					linha = s.nextLine();
+					for (int x = 0; x < linha.length(); x++) {
+						if((x % 2) != 0)
+							continue;
+						res[y][x/2] = linha.charAt(x);
+						
+					}
+					y++;
+				}
+					
+				
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+		return res;
+	}
+	
+	public void saveGame(){
+		JFileChooser file = new JFileChooser(System.getProperty("user.dir"));
+		int i = file.showOpenDialog(frame.getParent());
+		if(i == JFileChooser.APPROVE_OPTION){
+			try{
+				FileWriter escrever = new FileWriter(file.getSelectedFile()+ ".lab");
+				int dim = (isJogar)? gl.getLabirinto().getLabirinto().length : lEdit.getDim();
+				escrever.write(Integer.toString(dim) + '\n');
+				escrever.write((isJogar)? gl.getLab(): lEdit.getLab());
+				escrever.close();
+				
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void carregarEdit(char[][] maze){
+		int dim = 11;
+		
+		if(maze == null){
+			dim = Integer.parseInt(textFDim.getText());
+			lEdit.initResult(dim);
+		}else{
+			dim = maze.length;
+			textFDim.setText(Integer.toString(dim));
+			lEdit.setResult(maze);
+		}
+		
+		lEdit.setCharInUse('X');
+		display.setText("A Parede esta selecionada!");
+		frame3.getContentPane().add(lEdit);
+		frame3.setVisible(true);
+		frame3.setSize(dim*50  + 15, dim*50 + 40);
+		lEdit.setVisible(true);
+		lEdit.setSize(dim * 50, dim * 50);
+	}
+	
+	public void carregarGL(char[][] maze){
+		int estado = comboBox.getSelectedIndex();
+		int dim = maze.length;
+		gl = new GameLogic(maze, Dragao.Estado.values()[estado]);
+		gl.update();
+		frame2.setVisible(true);
+	
+		frame2.setSize(dim*50 + 15, dim*50 + 40);
+		gGraphics.setGl(gl); 
+		gGraphics.setVisible(true);
+		gGraphics.setBounds(0,0, dim*50, dim*50); 
+		gGraphics.repaint();
+		gGraphics.requestFocus();
+	} 
+	
 	public void setCompEdit(boolean b){
+		isJogar = b;
 		textFNumD.setVisible(b);
 		btnGerarNovoLabirinto.setVisible(b);
 		comboBox.setVisible(b);
@@ -257,6 +380,7 @@ public class interacao {
 		saida.setVisible(!b);
 		borracha.setVisible(!b);
 		aplicar.setVisible(!b);
+		display.setVisible(!b);
 		
 		
 	}
