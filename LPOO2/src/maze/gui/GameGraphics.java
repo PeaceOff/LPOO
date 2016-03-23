@@ -25,6 +25,8 @@ public class GameGraphics extends JPanel implements KeyListener {
 	BufferedImage labImg;
 	BufferedImage heroImg;
 	BufferedImage espadaImg;
+	BufferedImage dragaoImg;
+	BufferedImage saidaImg;
 	GameLogic gl;
 
 	final int imgSize = 50;
@@ -36,6 +38,8 @@ public class GameGraphics extends JPanel implements KeyListener {
 			labImg = ImageIO.read(new File("lab.jpg"));
 			heroImg = ImageIO.read(new File("hero.png"));
 			espadaImg = ImageIO.read(new File("espada.png"));
+			dragaoImg = ImageIO.read(new File("dragon.png"));
+			saidaImg = ImageIO.read(new File("end.png"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}  
@@ -59,7 +63,7 @@ public class GameGraphics extends JPanel implements KeyListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
 		if(gl!=null)
-			DrawingTools.DesenharLab(g,labImg,heroImg,espadaImg,gl.getLabirinto());
+			DrawingTools.DesenharLab(g,labImg,saidaImg,dragaoImg,heroImg,espadaImg,gl.getLabirinto());
 		else{ 
 			g.setColor(Color.white);
 			g.fillRect(0, 0, this.getWidth(),this.getHeight());

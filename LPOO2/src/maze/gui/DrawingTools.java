@@ -19,19 +19,28 @@ public class DrawingTools {
 		g.drawImage(heroImg, x, y, x+imgSize,y+ imgSize, x1, 0, x1 + imgSize,heroImg.getHeight(), null);
 	}
 	
-	private static void DesenharDragao(Graphics g, int x, int y){
+	private static void DesenharDragao(Graphics g, int x, int y,char simb, BufferedImage dragaoImg){
 		g.setColor(Color.red);
+		x*=imgSize;
+		y*=imgSize;
+		int x1 = 0;
+		if(simb == 'd')
+			x1 = 1;
+		else if(simb == 'F')
+			x1 = 2;
+		x1*=imgSize;
+		g.drawImage(dragaoImg, x, y, x+imgSize, y+imgSize, x1, 0, x1+imgSize, dragaoImg.getHeight(), null);
 		g.fillOval(x*imgSize, y*imgSize, imgSize, imgSize);
 		
 	}
 	
-	private static void DesenharEspada(Graphics g, int x, int y, BufferedImage espadaImg){
+	private static void DesenharImg(Graphics g, int x, int y, BufferedImage espadaImg){
 		x*=imgSize;
 		y*=imgSize;
 		g.drawImage(espadaImg, x, y, x+imgSize,y+ imgSize, 0, 0,imgSize,espadaImg.getHeight(), null);
 	}
 	
-	public static void DesenharLab(Graphics g, BufferedImage labImg,BufferedImage heroImg, BufferedImage espadaImg, Labirinto gl){
+	public static void DesenharLab(Graphics g, BufferedImage labImg,BufferedImage saidaImg, BufferedImage dragaoImg, BufferedImage heroImg, BufferedImage espadaImg, Labirinto gl){
 		char[][] lab = gl.getLabirinto();
 		for(int y = 0; y < lab.length; y++){
 			for (int x = 0; x < lab[0].length; x++) {
@@ -47,9 +56,11 @@ public class DrawingTools {
 					if(ch == 'H' || ch == 'A'){ 
 						DesenharHeroi(g,x,y, ch,heroImg);
 					}else if(ch == 'D' || ch == 'd' || ch == 'F'){ 
-						DesenharDragao(g, x, y);
+						DesenharDragao(g, x, y,ch,dragaoImg);
 					}else if (ch == 'E')
-						DesenharEspada(g, x, y,espadaImg);
+						DesenharImg(g, x, y,espadaImg);
+					else if(ch == 'S')
+						DesenharImg(g, x, y,saidaImg); 
 					
 					continue;
 				}

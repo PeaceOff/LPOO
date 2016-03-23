@@ -22,6 +22,8 @@ public class LabEditor extends JPanel implements MouseInputListener, MouseListen
 	BufferedImage labImg;
 	BufferedImage heroImg;
 	BufferedImage espadaImg;
+	BufferedImage dragaoImg;
+	BufferedImage saidaImg;
 	
 	LabEditor(){
 		this.addMouseListener(this);
@@ -32,6 +34,8 @@ public class LabEditor extends JPanel implements MouseInputListener, MouseListen
 			labImg = ImageIO.read(new File("lab.jpg"));
 			heroImg = ImageIO.read(new File("hero.png"));
 			espadaImg = ImageIO.read(new File("espada.png"));
+			dragaoImg = ImageIO.read(new File("dragon.png"));
+			saidaImg = ImageIO.read(new File("end.png"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -56,20 +60,17 @@ public class LabEditor extends JPanel implements MouseInputListener, MouseListen
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
-		DrawingTools.DesenharLab(g, labImg, heroImg, espadaImg, lab);
+		DrawingTools.DesenharLab(g,labImg,saidaImg,dragaoImg, heroImg, espadaImg, lab);
 		
-	}
+	} 
 	
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseDragged(MouseEvent e) {
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseMoved(MouseEvent e) {
+
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class LabEditor extends JPanel implements MouseInputListener, MouseListen
 		if( e.getButton() == MouseEvent.BUTTON1){
 			result[y][x] = charInUse;
 		}
-		
+
 		repaint();
 		
 	}

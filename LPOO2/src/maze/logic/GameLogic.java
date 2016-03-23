@@ -15,7 +15,7 @@ public class GameLogic {
 	private Entidade s;
 
 	public Labirinto getLabirinto() {
-		return l;
+		return l; 
 	}
 	
 	public boolean isHeroiArmado() {
