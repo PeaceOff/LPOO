@@ -7,7 +7,7 @@ public class MazeBuilder implements IMazeBuilder {
 	
 	private Node[][] nodesArray ;
 	private char[][] mapa;
-	private int numDragoes = 0;
+	private int numDragoes = 1;
 	
 	
 	
@@ -31,7 +31,7 @@ public class MazeBuilder implements IMazeBuilder {
 			throw new IllegalArgumentException("O numero tem de ser impar!");
 		
 		if(numDragoes > nDragoes)
-			throw new IllegalArgumentException("Numero de Dragoes deve ser menor ou igual a " + nDragoes + "!");
+			throw new IllegalArgumentException();
 		
 		
 		int dimensao = (size-1)/2;
