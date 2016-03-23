@@ -9,10 +9,10 @@ public class GameLogic {
 	}
 
 	private Heroi h;
-	private Espada e;
+	private Espada e = null;
 	private ArrayList<Dragao> dragoes = new ArrayList<Dragao>();
 	private Labirinto l = new Labirinto();
-	private Entidade s;
+	private Entidade s = null;
 
 	public Labirinto getLabirinto() {
 		return l; 
@@ -113,19 +113,20 @@ public class GameLogic {
 			return Estado.Morto;
 
 		desenharEntidades();
-
+		if(e!=null)
 		if (DragaoNaEspada() && e.isVisivel()) {
 			l.desenharSimb(e.getPosicaoX(), e.getPosicaoY(), 'F');
 		}
-		if (!DragoesMortos()) {
-			l.desenharSimb(s.getPosicaoX(), s.getPosicaoY(), 'X');
-		} else {
-			l.desenharSimb(s.getPosicaoX(), s.getPosicaoY(), 'S');
-		}
-
-		if (h.equals(s)) {
-			return Estado.Vitoria;
-		}
+		if(s!=null)
+			if (!DragoesMortos()) {
+				l.desenharSimb(s.getPosicaoX(), s.getPosicaoY(), 'X');
+			} else {
+				l.desenharSimb(s.getPosicaoX(), s.getPosicaoY(), 'S');
+			}
+		if(s!=null)
+			if (h.equals(s)) {
+				return Estado.Vitoria;
+			}
 
 		return Estado.Jogar;
 	}
@@ -177,8 +178,9 @@ public class GameLogic {
 
 	public void desenharEntidades() {
 		l.desenharSimb(h.getPosicaoX(), h.getPosicaoY(), h.getSimbolo());
-		if (e.isVisivel())
-			l.desenharSimb(e.getPosicaoX(), e.getPosicaoY(), e.getSimbolo());
+		if(e != null)
+			if (e.isVisivel())
+				l.desenharSimb(e.getPosicaoX(), e.getPosicaoY(), e.getSimbolo());
 		for (int i = 0; i < dragoes.size(); i++)
 			if (!dragoes.get(i).isMorto())
 				l.desenharSimb(dragoes.get(i).getPosicaoX(), dragoes.get(i).getPosicaoY(), dragoes.get(i).getSimbolo());
@@ -193,11 +195,12 @@ public class GameLogic {
 				|| l.obterSimb(xF, yF) == 'F'){	
 			return false;
 		}
-
-		if (xF == e.getPosicaoX() && yF == e.getPosicaoY()) {
-			h.setArmado(true);
-			e.setVisivel(false);
-		} 
+		
+		if(e!=null)
+			if (xF == e.getPosicaoX() && yF == e.getPosicaoY()) {
+				h.setArmado(true);
+				e.setVisivel(false);
+			} 
 		
 		l.desenharSimb(h.getPosicaoX(), h.getPosicaoY(), ' ');
 		h.setPosicaoX(xF);

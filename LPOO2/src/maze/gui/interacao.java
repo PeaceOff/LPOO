@@ -276,7 +276,9 @@ public class interacao {
 		btnGuardar.setBounds(339, 90, 89, 23);
 		frame.getContentPane().add(btnGuardar);
 		
-		setCompEdit(false);
+		carregarEdit(null);
+		setCompEdit(true);
+		
 	}
 	
 	public char[][] openGame(){
@@ -284,7 +286,7 @@ public class interacao {
 		JFileChooser file = new JFileChooser(System.getProperty("user.dir"));
 		file.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		FileNameExtensionFilter filtro = new FileNameExtensionFilter("labirinto","lab");
-		file.setFileFilter(filtro);
+		file.setFileFilter(filtro);  
 		int i = file.showOpenDialog(frame.getParent());
 		if(i == JFileChooser.APPROVE_OPTION){
 			try{
@@ -315,7 +317,11 @@ public class interacao {
 	
 	public void saveGame(){
 		JFileChooser file = new JFileChooser(System.getProperty("user.dir"));
-		int i = file.showOpenDialog(frame.getParent());
+		file.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		FileNameExtensionFilter filtro = new FileNameExtensionFilter("labirinto","lab");
+		file.setFileFilter(filtro);  
+		int i = file.showSaveDialog(frame.getParent());
+		
 		if(i == JFileChooser.APPROVE_OPTION){
 			try{
 				FileWriter escrever = new FileWriter(file.getSelectedFile()+ ".lab");
@@ -368,11 +374,17 @@ public class interacao {
 	
 	public void setCompEdit(boolean b){
 		isJogar = b;
+		
 		textFNumD.setVisible(b);
 		btnGerarNovoLabirinto.setVisible(b);
 		comboBox.setVisible(b);
 		lblNewLabel.setVisible(b);
 		lblNewLabel_1.setVisible(b);
+		
+		if(!b)
+			frame2.setVisible(b);
+		
+		frame3.setVisible(!b);
 		heroi.setVisible(!b);
 		parede.setVisible(!b);
 		dragao.setVisible(!b);

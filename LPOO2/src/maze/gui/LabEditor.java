@@ -66,7 +66,9 @@ public class LabEditor extends JPanel implements MouseInputListener, MouseListen
 		for (int i = 0; i < dim; i++) {
 			for (int j = 0; j < dim; j++) {
 				if(i == 0 || j == 0 || i == (dim-1) || j == (dim - 1))
-				result[i][j] = 'X';
+					result[i][j] = 'X';
+				else
+					result[i][j] = ' ';
 			}
 		}
 		lab.setLabirinto(result);
