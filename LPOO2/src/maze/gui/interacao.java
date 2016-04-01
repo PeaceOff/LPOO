@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JWindow;
 
@@ -13,6 +14,8 @@ import maze.logic.Labirinto;
 import maze.logic.MazeBuilder;
 
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -162,7 +165,7 @@ public class interacao {
 		});
 		espada.setBounds(170, 240, 100, 50);
 		frame.getContentPane().add(espada);
-		
+		 
 		saida = new JButton("Saida");
 		saida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -328,9 +331,18 @@ public class interacao {
 		
 		if(i == JFileChooser.APPROVE_OPTION){
 			try{
+				
+				if(!isJogar){
+					if(!lEdit.hasHero()){
+						JOptionPane.showMessageDialog(frame, "Heroi nao existe!");
+						
+						return;
+					}
+				}
 				FileWriter escrever = new FileWriter(file.getSelectedFile()+ ".lab");
 				int dim = (isJogar)? gl.getLabirinto().getLabirinto().length : lEdit.getDim();
 				escrever.write(Integer.toString(dim) + '\n');
+				
 				escrever.write((isJogar)? gl.getLab(): lEdit.getLab());
 				escrever.close();
 				

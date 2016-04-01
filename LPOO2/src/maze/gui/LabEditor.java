@@ -27,6 +27,17 @@ public class LabEditor extends JPanel implements MouseInputListener, MouseListen
 	int x;
 	int y;
 	
+	
+	public boolean hasHero(){
+		for (int i = 0; i < result.length; i++) {
+			for (int j = 0; j < result[0].length; j++) {
+				if(result[i][j] == 'H' || result[i][j] == 'A')
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	LabEditor(){
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
