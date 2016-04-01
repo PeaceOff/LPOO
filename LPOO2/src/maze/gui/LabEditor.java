@@ -145,6 +145,7 @@ public class LabEditor extends JPanel implements MouseInputListener, MouseListen
 			if(x == 0 || y == 0 || x == result[0].length - 1 || y == result.length - 1)
 				return;
 			substituir('H',' ');
+			substituir('A',' ');
 			break;
 		case ' ':
 			if(result[y][x] == 'S')

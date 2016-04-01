@@ -3,6 +3,12 @@ package maze.logic;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * <h1>MazeBuilder</h1>
+ * MazeBuilder is the class that generates a new maze based on a given odd dimension (bigger than 4)
+ * @author David and João
+ *
+ */
 public class MazeBuilder implements IMazeBuilder {
 	
 	private Node[][] nodesArray ;
@@ -10,15 +16,23 @@ public class MazeBuilder implements IMazeBuilder {
 	private int numDragoes = 1;
 	
 	
-	
+	/**
+	 * Get method for the numDragoes attribute
+	 * @return the number of Dragons
+	 */
 	public int getNumdragoes() {
 		return numDragoes;
 	}
-
+	
+	/**
+	 * Set method for the numDragoes attribute
+	 * @param numdragoes the new number of dragons to be set
+	 */
 	public void setNumdragoes(int numdragoes) {
 		this.numDragoes = numdragoes;
 	}
 
+	
 	@Override
 	public char[][] buildMaze(int size) throws IllegalArgumentException {
 		
@@ -31,7 +45,7 @@ public class MazeBuilder implements IMazeBuilder {
 			throw new IllegalArgumentException("O numero tem de ser impar!");
 		
 		if(numDragoes > nDragoes)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("O numero de dragoes e superior a " + nDragoes + ".");
 		
 		
 		int dimensao = (size-1)/2;
@@ -144,7 +158,7 @@ public class MazeBuilder implements IMazeBuilder {
 		return mapa;
 	}
 	
-	void CriarCaminho(Node p1, Node p2){
+	private void CriarCaminho(Node p1, Node p2){
 		
 		int p1x = p1.getX()*2 + 1;
 		int p2x = p2.getX()*2 + 1;
@@ -159,14 +173,14 @@ public class MazeBuilder implements IMazeBuilder {
 		mapa[y][x]= ' ';
 	}
 	
-	void DefinirChar(Node a, char ch){
+	private void DefinirChar(Node a, char ch){
 		int x = a.getX() * 2 + 1;
 		int y = a.getY() * 2 + 1; 
 		mapa[y][x] = ch;
 		
 	}
 	
-	ArrayList<Node> obterVizinhos(Node n){
+	private ArrayList<Node> obterVizinhos(Node n){
 		if(n == null) return null;
 		
 		ArrayList<Node> res = new ArrayList<Node>();

@@ -39,7 +39,7 @@ public class interacao {
 	private JComboBox comboBox;
 	private GameLogic gl;
 	private GameGraphics gGraphics = new GameGraphics(null);
-	private JFrame frame2 = new JFrame("Happy Easter!");
+	private JFrame frame2 = new JFrameExtended("Happy Easter!"); 
 	private JFrame frame3 = new JFrame("Editor de Labirinto");
 	private JButton btnEdit;
 	private LabEditor lEdit;
@@ -51,7 +51,7 @@ public class interacao {
 	private JButton espada;
 	private JButton saida;
 	private JButton borracha;
-	private JButton aplicar;
+	private JButton aplicar; 
 	private JLabel display;
 	private JButton btnCarregarMaze;
 	private JButton btnGuardar;
@@ -208,9 +208,10 @@ public class interacao {
 					ndrag = Integer.parseInt(textFNumD.getText());
 					mb.setNumdragoes(ndrag); 
 					carregarGL(mb.buildMaze(dim));
-
+					
 					
 				}catch (IllegalArgumentException e){
+					display.setText(e.getMessage());
 					return;
 				}
 			}
@@ -264,7 +265,7 @@ public class interacao {
 				}
 			}
 		});
-		btnCarregarMaze.setBounds(24, 90, 86, 23);
+		btnCarregarMaze.setBounds(24, 90, 106, 23);
 		frame.getContentPane().add(btnCarregarMaze);
 		
 		btnGuardar = new JButton("Guardar...");
@@ -273,7 +274,7 @@ public class interacao {
 				saveGame();
 			}
 		});
-		btnGuardar.setBounds(339, 90, 89, 23);
+		btnGuardar.setBounds(315, 90, 113, 23);
 		frame.getContentPane().add(btnGuardar);
 		
 		carregarEdit(null);
@@ -283,11 +284,14 @@ public class interacao {
 	
 	public char[][] openGame(){
 		char[][] res = null;
+		
 		JFileChooser file = new JFileChooser(System.getProperty("user.dir"));
 		file.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		FileNameExtensionFilter filtro = new FileNameExtensionFilter("labirinto","lab");
 		file.setFileFilter(filtro);  
+		
 		int i = file.showOpenDialog(frame.getParent());
+		
 		if(i == JFileChooser.APPROVE_OPTION){
 			try{
 				FileReader ler = new FileReader(file.getSelectedFile());
@@ -363,7 +367,7 @@ public class interacao {
 		gl = new GameLogic(maze, Dragao.Estado.values()[estado]);
 		gl.update();
 		frame2.setVisible(true);
-	
+		
 		frame2.setSize(dim*50 + 15, dim*50 + 40);
 		gGraphics.setGl(gl); 
 		gGraphics.setVisible(true);
@@ -371,6 +375,8 @@ public class interacao {
 		gGraphics.repaint();
 		gGraphics.requestFocus();
 	} 
+	
+
 	
 	public void setCompEdit(boolean b){
 		isJogar = b;
@@ -392,7 +398,7 @@ public class interacao {
 		saida.setVisible(!b);
 		borracha.setVisible(!b);
 		aplicar.setVisible(!b);
-		display.setVisible(!b);
+		display.setText("");
 		
 		
 	}

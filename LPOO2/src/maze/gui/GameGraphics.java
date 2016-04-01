@@ -62,6 +62,7 @@ public class GameGraphics extends JPanel implements KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
+		
 		if(gl!=null)
 			DrawingTools.DesenharLab(g,labImg,saidaImg,dragaoImg,heroImg,espadaImg,gl.getLabirinto());
 		else{ 

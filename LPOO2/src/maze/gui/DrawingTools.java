@@ -10,48 +10,48 @@ import maze.logic.Labirinto;
 public class DrawingTools {
 	
 	final static int imgSize = 50;
-
+	final static int displaySize =50;
 	private static void DesenharHeroi(Graphics g, int x, int y, char simb,BufferedImage heroImg){
-		x*=imgSize;
-		y*=imgSize; 
+		x*=displaySize;
+		y*=displaySize; 
 		int x1 = (simb == 'A')? imgSize : 0;
 		
-		g.drawImage(heroImg, x, y, x+imgSize,y+ imgSize, x1, 0, x1 + imgSize,heroImg.getHeight(), null);
+		g.drawImage(heroImg, x, y, x+displaySize,y+ displaySize, x1, 0, x1 + imgSize,heroImg.getHeight(), null);
 	}
 	
 	private static void DesenharDragao(Graphics g, int x, int y,char simb, BufferedImage dragaoImg){
 		g.setColor(Color.red);
-		x*=imgSize;
-		y*=imgSize;
+		x*=displaySize;
+		y*=displaySize;
 		int x1 = 0;
 		if(simb == 'd')
 			x1 = 1;
 		else if(simb == 'F')
 			x1 = 2;
 		x1*=imgSize;
-		g.drawImage(dragaoImg, x, y, x+imgSize, y+imgSize, x1, 0, x1+imgSize, dragaoImg.getHeight(), null);
-		g.fillOval(x*imgSize, y*imgSize, imgSize, imgSize);
+		g.drawImage(dragaoImg, x, y, x+displaySize, y+displaySize, x1, 0, x1+imgSize, dragaoImg.getHeight(), null);
+		//g.fillOval(x*imgSize, y*imgSize, imgSize, imgSize);
 		
 	}
 	
 	private static void DesenharImg(Graphics g, int x, int y, BufferedImage espadaImg){
-		x*=imgSize;
-		y*=imgSize;
-		g.drawImage(espadaImg, x, y, x+imgSize,y+ imgSize, 0, 0,imgSize,espadaImg.getHeight(), null);
+		x*=displaySize;
+		y*=displaySize;
+		g.drawImage(espadaImg, x, y, x+displaySize,y+ displaySize, 0, 0,imgSize,espadaImg.getHeight(), null);
 	}
 	
 	public static void DesenharLab(Graphics g, BufferedImage labImg,BufferedImage saidaImg, BufferedImage dragaoImg, BufferedImage heroImg, BufferedImage espadaImg, Labirinto gl){
 		char[][] lab = gl.getLabirinto();
 		for(int y = 0; y < lab.length; y++){
 			for (int x = 0; x < lab[0].length; x++) {
-				int x1 = x*imgSize;
-				int y1 = y*imgSize;
+				int x1 = x*displaySize;
+				int y1 = y*displaySize;
 				 
 				int x2 = 5*imgSize;
 				int y2 = imgSize;
 				   
 				if(lab[y][x] != 'X'){
-					g.drawImage(labImg, x1, y1, x1+imgSize, y1+imgSize, x2, y2, x2+ imgSize,y2+ imgSize, null);
+					g.drawImage(labImg, x1, y1, x1+displaySize, y1+displaySize, x2, y2, x2+ imgSize,y2+ imgSize, null);
 					char ch = lab[y][x];
 					if(ch == 'H' || ch == 'A'){ 
 						DesenharHeroi(g,x,y, ch,heroImg);
@@ -138,7 +138,7 @@ public class DrawingTools {
 				x2*=imgSize;
 				y2*=imgSize;
 				
-				g.drawImage(labImg, x1, y1, x1+imgSize, y1+imgSize, x2, y2, x2+ imgSize,y2+ imgSize, null);
+				g.drawImage(labImg, x1, y1, x1+displaySize, y1+displaySize, x2, y2, x2+ imgSize,y2+ imgSize, null);
 				
 			}
 		}
