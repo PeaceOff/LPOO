@@ -255,7 +255,7 @@ public class interacao {
 		display.setBounds(50, 300, 346, 14);
 		frame.getContentPane().add(display);
 		
-		btnCarregarMaze = new JButton("Carregar...");
+		btnCarregarMaze = new JButton("Carregar");
 		btnCarregarMaze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char[][] maze = openGame();
@@ -271,7 +271,7 @@ public class interacao {
 		btnCarregarMaze.setBounds(24, 90, 106, 23);
 		frame.getContentPane().add(btnCarregarMaze);
 		
-		btnGuardar = new JButton("Guardar...");
+		btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				saveGame();
